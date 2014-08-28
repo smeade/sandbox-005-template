@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sku: MyString
+  name: MyString
+  description: MyString
+  price_cents: 1
+  active: false
+  available_on: 2014-08-27
+
+two:
+  sku: MyString
+  name: MyString
+  description: MyString
+  price_cents: 1
+  active: false
+  available_on: 2014-08-27
