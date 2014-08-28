@@ -21,6 +21,12 @@ insert_into_file 'Gemfile', "\nruby '2.0.0'", after: "source 'https://rubygems.o
 # bootstrap-generators gem provides Twitter Bootstrap generators for Rails (and includes Bootstrap)
 gem 'bootstrap-generators'
 
+# Select2 is a jQuery based replacement for select boxes
+gem "select2-rails"
+
+# CSV support
+gem 'smarter_csv'
+
 gem_group :production do
   # Support for Heroku deployment
   gem 'rails_12factor'
