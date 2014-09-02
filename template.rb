@@ -27,6 +27,10 @@ gem "select2-rails"
 # CSV support
 gem 'smarter_csv'
 
+gem_group :development do
+  gem 'better_errors'
+end
+
 gem_group :production do
   # Support for Heroku deployment
   gem 'rails_12factor'
