@@ -53,9 +53,12 @@ eos
 # Generate a resource to have something to play with
 # ==================================================
 rake("db:create")
-generate(:scaffold, "product sku name description price_cents:integer active:boolean available_on:date")
-route "root to: 'products#index'"
-rake("db:migrate")
+if yes("Would you like to create products and review scaffolds at this time?")
+  generate(:scaffold, "product sku name description price_cents:integer active:boolean available_on:date")
+  generate(:scaffold, "review product:references title body:text")
+  route "root to: 'products#index'"
+  rake("db:migrate")
+end
 
 # Environment files
 # ==================================================
@@ -64,16 +67,34 @@ replace_line('config/environments/production.rb', :match => /config.assets.compi
 
 # Git: Initialize
 # ==================================================
+file ".gitignore", <<-END
+# Ignore bin
+/bin
+
+# Ignore bundler config.
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+END
 git :init
 git add: "."
 git commit: %Q{ -m 'Initial commit' }
 
 # Deploy to Heroku
 # ==================================================
-run "heroku apps:create"
-run "git push heroku master"
-run "heroku run rake db:migrate"
-run "heroku open"
+if yes("Would you like to deploy to Heroku at this time?")
+  app_name = ask("What would you like to name the Heroku app?")
+  run "heroku apps:create #{app_name}"
+  run "git push heroku master"
+  run "heroku run rake db:migrate"
+  run "heroku open"
+end
 
 # heroku apps:create app-name
 # heroku git:remote -a app-name
