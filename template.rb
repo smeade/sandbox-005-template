@@ -53,7 +53,7 @@ eos
 # Generate a resource to have something to play with
 # ==================================================
 rake("db:create")
-if yes("Would you like to create products and review scaffolds at this time?")
+if yes?("Would you like to create products and review scaffolds at this time?")
   generate(:scaffold, "product sku name description price_cents:integer active:boolean available_on:date")
   generate(:scaffold, "review product:references title body:text")
   route "root to: 'products#index'"
@@ -68,9 +68,6 @@ replace_line('config/environments/production.rb', :match => /config.assets.compi
 # Git: Initialize
 # ==================================================
 file ".gitignore", <<-END
-# Ignore bin
-/bin
-
 # Ignore bundler config.
 /.bundle
 
@@ -88,7 +85,7 @@ git commit: %Q{ -m 'Initial commit' }
 
 # Deploy to Heroku
 # ==================================================
-if yes("Would you like to deploy to Heroku at this time?")
+if yes?("Would you like to deploy to Heroku at this time?")
   app_name = ask("What would you like to name the Heroku app?")
   run "heroku apps:create #{app_name}"
   run "git push heroku master"
